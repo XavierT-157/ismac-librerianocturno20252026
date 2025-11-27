@@ -4,7 +4,7 @@ import java.util.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "factura_detalle")
+@Table(name = "libro")
 
 public class Libro {
 
