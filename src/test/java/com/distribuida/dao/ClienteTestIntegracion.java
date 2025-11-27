@@ -7,15 +7,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback(value = false)
+//@Import(ClienteRepository.class)
 
 public class ClienteTestIntegracion {
     @Autowired
@@ -59,5 +64,10 @@ public class ClienteTestIntegracion {
     @Test
     public void testClienteBorrar(){
         clienteRepository.deleteById(39);
+    }
+
+    @Test
+    public void testInyeccionClienteRepository() {
+        assertNotNull(clienteRepository, "ClienteRepository no fue inyectado correctamente");
     }
 }

@@ -1,5 +1,7 @@
 package com.distribuida.model;
 
+import jakarta.persistence.*;
+
 public class Autor {
 
     // atributos
