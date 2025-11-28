@@ -60,7 +60,7 @@ public class FacturaTestIntegracion {
     @Test
     public void testFacturaUpdate(){
         Optional<Cliente> cliente = clienteRepository.findById(2);
-        Optional<Factura> factura = facturaRepository.findById(86);
+        Optional<Factura> factura = facturaRepository.findById(82);
 
         factura.orElse(null).setNumFactura("FAC-00077");
         factura.orElse(null).setFecha(new Date());
@@ -75,6 +75,6 @@ public class FacturaTestIntegracion {
 
     @Test
     public void testFacturaDelete(){
-        facturaRepository.deleteById(86);
+        facturaRepository.deleteById(90);
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -29,6 +29,8 @@ public class ClienteTestIntegracion {
     @Test
     public void testClientFindAll(){
         List<Cliente> clientes = clienteRepository.findAll();
+        assertNotNull(clientes);
+        assertTrue(clientes.size()>0);
         for (Cliente item : clientes){
             System.out.println(item.toString());
         }
@@ -37,18 +39,26 @@ public class ClienteTestIntegracion {
     @Test
     public void testClienteFindOne(){
         Optional<Cliente> cliente = clienteRepository.findById(1);
+        assertNotNull(cliente.isPresent());
+        assertEquals("Puro",cliente.orElse(null).getNombre());
+        assertEquals("Hueso",cliente.orElse(null).getApellido());
         System.out.println(cliente);
     }
 
     @Test
     public void testClienteSave(){
         Cliente cliente = new Cliente(0, "1707712377", "Juan77", "Taipe77", "Av. 77", "0996906277", "jt77@correo.com");
-    clienteRepository.save(cliente);
+        Cliente clienteGuardado = clienteRepository.save(cliente);
+
+        assertNotNull(clienteGuardado);
+        assertEquals("1707712377",clienteGuardado.getCedula());
+        assertEquals("Juan77",clienteGuardado.getNombre());
+
     }
 
     @Test
     public void testClienteActualizar(){
-        Optional<Cliente> cliente = clienteRepository.findById(39);
+        Optional<Cliente> cliente = clienteRepository.findById(35);
 
         cliente.orElse(null).setCedula("1707287888");
         cliente.orElse(null).setNombre("Juan88");
