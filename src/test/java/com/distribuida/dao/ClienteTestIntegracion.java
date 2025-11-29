@@ -58,22 +58,31 @@ public class ClienteTestIntegracion {
 
     @Test
     public void testClienteActualizar(){
-        Optional<Cliente> cliente = clienteRepository.findById(35);
+        Optional<Cliente> cliente2 = clienteRepository.findById(35);
 
-        cliente.orElse(null).setCedula("1707287888");
-        cliente.orElse(null).setNombre("Juan88");
-        cliente.orElse(null).setApellido("Taipe88");
-        cliente.orElse(null).setDireccion("Avenida88");
-        cliente.orElse(null).setTelefono("0981234588");
-        cliente.orElse(null).setCorreo("jtaipe88@correo.com");
+        assertTrue(cliente2.isPresent());
 
-        clienteRepository.save(cliente.orElse(null));
+        cliente2.orElse(null).setCedula("1707287888");
+        cliente2.orElse(null).setNombre("Juan88");
+        cliente2.orElse(null).setApellido("Taipe88");
+        cliente2.orElse(null).setDireccion("Avenida88");
+        cliente2.orElse(null).setTelefono("0981234588");
+        cliente2.orElse(null).setCorreo("jtaipe88@correo.com");
+
+        Cliente clienteActualizado = clienteRepository.save(cliente2.orElse(null));
+
+        assertNotNull(clienteActualizado);
+        assertEquals("Taipe88", clienteActualizado.getApellido());
+        assertEquals("Direccion88", clienteActualizado.getApellido());
 
     }
 
     @Test
-    public void testClienteBorrar(){
-        clienteRepository.deleteById(39);
+    public void testClienteBorrar() {
+        if (clienteRepository.existsById(39)) {
+            clienteRepository.deleteById(39);
+        }
+        assertFalse(clienteRepository.existsById(39));
     }
 
     @Test
