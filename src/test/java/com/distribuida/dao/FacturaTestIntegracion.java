@@ -45,7 +45,6 @@ public class FacturaTestIntegracion {
         assertEquals("FAC-0001", factura.orElse(null).getNumFactura());
         assertEquals(150.96, factura.orElse(null).getTotal());
         System.out.println(factura);
-
     }
 
     @Test
@@ -98,6 +97,5 @@ public class FacturaTestIntegracion {
             facturaRepository.deleteById(87);
         }
         assertFalse(facturaRepository.existsById(87));
-
     }
 }

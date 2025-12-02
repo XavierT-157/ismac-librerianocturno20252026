@@ -1,6 +1,5 @@
 package com.distribuida.dao;
 
-
 import com.distribuida.model.Cliente;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -73,7 +72,7 @@ public class ClienteTestIntegracion {
 
         assertNotNull(clienteActualizado);
         assertEquals("Taipe88", clienteActualizado.getApellido());
-        assertEquals("Direccion88", clienteActualizado.getApellido());
+        assertEquals("Direccion88", clienteActualizado.getDireccion());
 
     }
 
@@ -85,8 +84,4 @@ public class ClienteTestIntegracion {
         assertFalse(clienteRepository.existsById(39));
     }
 
-    @Test
-    public void testInyeccionClienteRepository() {
-        assertNotNull(clienteRepository, "ClienteRepository no fue inyectado correctamente");
-    }
 }
