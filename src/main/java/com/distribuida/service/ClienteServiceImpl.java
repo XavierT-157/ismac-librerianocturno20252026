@@ -20,21 +20,37 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente findOne(int id) {
-        return null;
+        return clienteRepository.findById(id).orElse(null);
     }
 
     @Override
     public Cliente save(Cliente cliente) {
-        return null;
+        return clienteRepository.save(cliente);
     }
 
     @Override
     public Cliente update(Cliente cliente) {
-        return null;
+        Cliente clienteExistente = clienteRepository.findById(cliente.getIdCliente()).orElse(null);
+
+        if (clienteExistente == null) {
+            return null;
+        }
+
+        clienteExistente.setCedula(cliente.getCedula());
+        clienteExistente.setNombre(cliente.getNombre());
+        clienteExistente.setApellido(cliente.getApellido());
+        clienteExistente.setDireccion(cliente.getDireccion());
+        clienteExistente.setTelefono(cliente.getTelefono());
+        clienteExistente.setCorreo(cliente.getCorreo());
+
+        return clienteRepository.save(clienteExistente);
     }
 
     @Override
     public void delete(int id) {
-
+        if (clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);
+        }
     }
 }
+
