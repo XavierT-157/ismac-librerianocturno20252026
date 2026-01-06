@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacturaServiceImpl implements FacturaService {
@@ -29,21 +30,21 @@ public class FacturaServiceImpl implements FacturaService {
     }
 
     @Override
-    public Factura update(Factura factura) {
-        Factura facturaExistente = facturaRepository.findById(factura.getIdFactura()).orElse(null);
+    public Factura update(int id, Factura factura) {
+        Optional<Factura> facturaExistente = facturaRepository.findById(id);
 
         if (facturaExistente == null) {
             return null;
         }
 
-        facturaExistente.setNumFactura(factura.getNumFactura());
-        facturaExistente.setFecha(factura.getFecha());
-        facturaExistente.setTotalNeto(factura.getTotalNeto());
-        facturaExistente.setIva(factura.getIva());
-        facturaExistente.setTotal(factura.getTotal());
-        facturaExistente.setCliente(factura.getCliente());
+        facturaExistente.orElse(null).setNumFactura(factura.getNumFactura());
+        facturaExistente.orElse(null).setFecha(factura.getFecha());
+        facturaExistente.orElse(null).setTotalNeto(factura.getTotalNeto());
+        facturaExistente.orElse(null).setIva(factura.getIva());
+        facturaExistente.orElse(null).setTotal(factura.getTotal());
+        facturaExistente.orElse(null).setCliente(factura.getCliente());
 
-        return facturaRepository.save(facturaExistente);
+        return facturaRepository.save(facturaExistente.orElse(null));
     }
 
     @Override

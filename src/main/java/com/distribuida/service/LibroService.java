@@ -11,7 +11,7 @@ public interface LibroService {
 
     public Libro save(Libro libro);
 
-    public Libro update(Libro libro);
+    public Libro update(int id, Libro libro);
 
     public void delete(int id);
 }

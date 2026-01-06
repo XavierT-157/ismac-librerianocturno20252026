@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacturaDetalleServiceImpl implements FacturaDetalleService {
@@ -29,19 +30,19 @@ public class FacturaDetalleServiceImpl implements FacturaDetalleService {
     }
 
     @Override
-    public FacturaDetalle update(FacturaDetalle facturaDetalle) {
-        FacturaDetalle detalleExistente = facturaDetalleRepository.findById(facturaDetalle.getIdFacturaDetalle()).orElse(null);
+    public FacturaDetalle update(int id, FacturaDetalle facturaDetalle) {
+        Optional<FacturaDetalle> detalleExistente = facturaDetalleRepository.findById(id);
 
         if (detalleExistente == null) {
             return null;
         }
 
-        detalleExistente.setCantidad(facturaDetalle.getCantidad());
-        detalleExistente.setSubtotal(facturaDetalle.getSubtotal());
-        detalleExistente.setFactura(facturaDetalle.getFactura());
-        detalleExistente.setLibro(facturaDetalle.getLibro());
+        detalleExistente.orElse(null).setCantidad(facturaDetalle.getCantidad());
+        detalleExistente.orElse(null).setSubtotal(facturaDetalle.getSubtotal());
+        detalleExistente.orElse(null).setFactura(facturaDetalle.getFactura());
+        detalleExistente.orElse(null).setLibro(facturaDetalle.getLibro());
 
-        return facturaDetalleRepository.save(detalleExistente);
+        return facturaDetalleRepository.save(detalleExistente.orElse(null));
     }
 
     @Override

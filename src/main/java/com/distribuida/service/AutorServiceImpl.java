@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AutorServiceImpl implements AutorService {
@@ -29,21 +30,21 @@ public class AutorServiceImpl implements AutorService {
     }
 
     @Override
-    public Autor update(Autor autor) {
-        Autor autorExistente = autorRepository.findById(autor.getIdAutor()).orElse(null);
+    public Autor update(int id, Autor autor) {
+        Optional<Autor> autorExistente = autorRepository.findById(id);
 
         if (autorExistente == null) {
             return null;
         }
 
-        autorExistente.setNombre(autor.getNombre());
-        autorExistente.setApellido(autor.getApellido());
-        autorExistente.setPais(autor.getPais());
-        autorExistente.setDireccion(autor.getDireccion());
-        autorExistente.setTelefono(autor.getTelefono());
-        autorExistente.setCorreo(autor.getCorreo());
+        autorExistente.orElse(null).setNombre(autor.getNombre());
+        autorExistente.orElse(null).setApellido(autor.getApellido());
+        autorExistente.orElse(null).setPais(autor.getPais());
+        autorExistente.orElse(null).setDireccion(autor.getDireccion());
+        autorExistente.orElse(null).setTelefono(autor.getTelefono());
+        autorExistente.orElse(null).setCorreo(autor.getCorreo());
 
-        return autorRepository.save(autorExistente);
+        return autorRepository.save(autorExistente.orElse(null));
     }
 
     @Override

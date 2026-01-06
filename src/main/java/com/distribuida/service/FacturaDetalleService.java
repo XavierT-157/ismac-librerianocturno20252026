@@ -11,7 +11,7 @@ public interface FacturaDetalleService {
 
     public FacturaDetalle save(FacturaDetalle facturaDetalle);
 
-    public FacturaDetalle update(FacturaDetalle facturaDetalle);
+    public FacturaDetalle update(int id, FacturaDetalle facturaDetalle);
 
     public void delete(int id);
 }

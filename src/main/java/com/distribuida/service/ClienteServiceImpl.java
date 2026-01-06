@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -29,21 +30,21 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente update(Cliente cliente) {
-        Cliente clienteExistente = clienteRepository.findById(cliente.getIdCliente()).orElse(null);
+    public Cliente update(int id, Cliente cliente) {
+        Optional<Cliente> clienteExistente = clienteRepository.findById(id);
 
         if (clienteExistente == null) {
             return null;
         }
 
-        clienteExistente.setCedula(cliente.getCedula());
-        clienteExistente.setNombre(cliente.getNombre());
-        clienteExistente.setApellido(cliente.getApellido());
-        clienteExistente.setDireccion(cliente.getDireccion());
-        clienteExistente.setTelefono(cliente.getTelefono());
-        clienteExistente.setCorreo(cliente.getCorreo());
+        clienteExistente.orElse(null).setCedula(cliente.getCedula());
+        clienteExistente.orElse(null).setNombre(cliente.getNombre());
+        clienteExistente.orElse(null).setApellido(cliente.getApellido());
+        clienteExistente.orElse(null).setDireccion(cliente.getDireccion());
+        clienteExistente.orElse(null).setTelefono(cliente.getTelefono());
+        clienteExistente.orElse(null).setCorreo(cliente.getCorreo());
 
-        return clienteRepository.save(clienteExistente);
+        return clienteRepository.save(clienteExistente.orElse(null));
     }
 
     @Override

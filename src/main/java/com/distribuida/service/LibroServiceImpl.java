@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LibroServiceImpl implements LibroService {
@@ -29,30 +30,30 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public Libro update(Libro libro) {
-        Libro libroExistente = libroRepository.findById(libro.getIdLibro()).orElse(null);
+    public Libro update(int id, Libro libro) {
+        Optional<Libro> libroExistente = libroRepository.findById(id);
 
         if (libroExistente == null) {
             return null;
         }
 
-        libroExistente.setTitulo(libro.getTitulo());
-        libroExistente.setEditorial(libro.getEditorial());
-        libroExistente.setNumPaginas(libro.getNumPaginas());
-        libroExistente.setEdicion(libro.getEdicion());
-        libroExistente.setIdioma(libro.getIdioma());
-        libroExistente.setFechaPublicacion(libro.getFechaPublicacion());
-        libroExistente.setDescripcion(libro.getDescripcion());
-        libroExistente.setTipoPasta(libro.getTipoPasta());
-        libroExistente.setISBN(libro.getISBN());
-        libroExistente.setNumEjemplares(libro.getNumEjemplares());
-        libroExistente.setPortada(libro.getPortada());
-        libroExistente.setPresentacion(libro.getPresentacion());
-        libroExistente.setPrecio(libro.getPrecio());
-        libroExistente.setAutor(libro.getAutor());
-        libroExistente.setCategoria(libro.getCategoria());
+        libroExistente.orElse(null).setTitulo(libro.getTitulo());
+        libroExistente.orElse(null).setEditorial(libro.getEditorial());
+        libroExistente.orElse(null).setNumPaginas(libro.getNumPaginas());
+        libroExistente.orElse(null).setEdicion(libro.getEdicion());
+        libroExistente.orElse(null).setIdioma(libro.getIdioma());
+        libroExistente.orElse(null).setFechaPublicacion(libro.getFechaPublicacion());
+        libroExistente.orElse(null).setDescripcion(libro.getDescripcion());
+        libroExistente.orElse(null).setTipoPasta(libro.getTipoPasta());
+        libroExistente.orElse(null).setISBN(libro.getISBN());
+        libroExistente.orElse(null).setNumEjemplares(libro.getNumEjemplares());
+        libroExistente.orElse(null).setPortada(libro.getPortada());
+        libroExistente.orElse(null).setPresentacion(libro.getPresentacion());
+        libroExistente.orElse(null).setPrecio(libro.getPrecio());
+        libroExistente.orElse(null).setAutor(libro.getAutor());
+        libroExistente.orElse(null).setCategoria(libro.getCategoria());
 
-        return libroRepository.save(libroExistente);
+        return libroRepository.save(libroExistente.orElse(null));
     }
 
     @Override
