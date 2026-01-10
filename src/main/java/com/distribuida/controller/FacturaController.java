@@ -1,6 +1,7 @@
 package com.distribuida.controller;
 
 import com.distribuida.model.Factura;
+import com.distribuida.model.Factura;
 import com.distribuida.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,4 +36,20 @@ public class FacturaController {
         Factura facturaNuevo = facturaService.save(factura);
         return ResponseEntity.ok(facturaNuevo);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Factura> update(@PathVariable int id, @RequestBody Factura factura){
+        Factura facturaActualizado = facturaService.update(id, factura);
+        if(facturaActualizado ==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(facturaActualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id){
+        facturaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
