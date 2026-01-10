@@ -4,10 +4,7 @@ import com.distribuida.model.Factura;
 import com.distribuida.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,11 @@ public class FacturaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(factura);
+    }
+
+    @PostMapping
+    public ResponseEntity<Factura> save(@RequestBody Factura factura){
+        Factura facturaNuevo = facturaService.save(factura);
+        return ResponseEntity.ok(facturaNuevo);
     }
 }
