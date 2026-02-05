@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "autor")
 public class Autor {
 
+
+    //COMMIT DE PRUEBA
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_autor")
